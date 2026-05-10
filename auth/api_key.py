@@ -1,6 +1,6 @@
 from fastapi import Header, HTTPException
 
-API_KEY = "123456"  #depois irei melhorar com .env
+API_KEY = "123456"  #desenvolver o .env (x-api-key: 123456)
 
 def verify_api_key(x_api_key: str = Header(None)):
 
@@ -9,3 +9,5 @@ def verify_api_key(x_api_key: str = Header(None)):
             status_code=401,
             detail="API Key inválida ou não fornecida."
         )
+    
+    
