@@ -2,10 +2,11 @@ from fastapi import Request, HTTPException
 from cache.redis_client import redis_client
 
 LIMIT = 10
-WINDOW = 60  #estabelecendo segundos
+WINDOW = 60  # estabelecendo segundos
+
 
 async def rate_limit(request: Request):
-    print('RATE LIMIT CHAMADO.')
+    print("RATE LIMIT CHAMADO.")
 
     ip = request.client.host
 
@@ -16,8 +17,7 @@ async def rate_limit(request: Request):
     if current:
         if int(current) >= LIMIT:
             raise HTTPException(
-                status_code=429,
-                detail="Muitas requisições. Tente novamente mais tarde."
+                status_code=429, detail="Muitas requisições. Tente novamente mais tarde."
             )
         redis_client.incr(key)
     else:

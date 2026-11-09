@@ -6,9 +6,10 @@ from schemas.pokemon_schema import PokemonResponse
 
 router = APIRouter()
 
+
 # tarefa assíncrona com async
 @router.get("/{pokemon}", response_model=PokemonResponse)
 async def get_pokemon(pokemon: str, request: Request):
     verify_api_key(request.headers.get("x-api-key"))  # autenticacao
-    await rate_limit(request)                         # rate limit
+    await rate_limit(request)  # rate limit
     return get_pokemon_data(pokemon)

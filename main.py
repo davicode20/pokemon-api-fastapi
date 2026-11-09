@@ -11,10 +11,7 @@ app = FastAPI()
 
 app.include_router(pokemon_router, prefix="/pokemon")
 
+
 @app.get("/health")
 def health():
-    return {
-        "status": "ok",
-        "api": "pokemon-api",
-        "version": "1.0.0"
-    }
+    return {"status": "ok", "api": "pokemon-api", "version": "1.0.0"}

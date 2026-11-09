@@ -2,7 +2,8 @@ import requests
 from fastapi import HTTPException
 import json
 
-from cache.redis_client import redis_client 
+from cache.redis_client import redis_client
+
 
 def get_pokemon_data(pokemon: str):
 
@@ -19,10 +20,7 @@ def get_pokemon_data(pokemon: str):
         return json.loads(cache)
 
     # requisição na api externa
-    r = requests.get(
-    f"https://pokeapi.co/api/v2/pokemon/{pokemon}",
-    timeout=5
-    )
+    r = requests.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}", timeout=5)
 
     if r.status_code == 404:
         raise HTTPException(status_code=404, detail="Pokémon não encontrado")
@@ -35,7 +33,7 @@ def get_pokemon_data(pokemon: str):
     formatted_data = {
         "name": data["name"],
         "id": data["id"],
-        "types": [t["type"]["name"] for t in data["types"]]
+        "types": [t["type"]["name"] for t in data["types"]],
     }
 
     print("SALVANDO NO CACHE:", key)
